@@ -1,3 +1,9 @@
+import cytoscape from "cytoscape";
+import Papa from "papaparse";
+
+const distanceCsv = new URL("./co-distance.csv", import.meta.url).href;
+const timeCsv = new URL("./co-time.csv", import.meta.url).href;
+
 let distanceMatrix,
   timeMatrix,
   graphElements,
@@ -813,9 +819,10 @@ function timeConvert(inputMinutes) {
 
 async function setAdjMatrix() {
   try {
-    distanceMatrix = await getAdjMatrixFromCSV("./co-distance.csv");
-    timeMatrix = await getAdjMatrixFromCSV("./co-time.csv");
+    distanceMatrix = await getAdjMatrixFromCSV(distanceCsv);
+    timeMatrix = await getAdjMatrixFromCSV(timeCsv);
     graphElements = buildNodesAndEdges(distanceMatrix, timeMatrix);
+    // graphElements = buildNodesAndEdges(distanceCsv, timeCsv);
     buildGraph();
     graphElements.find((el) => el);
   } catch (error) {

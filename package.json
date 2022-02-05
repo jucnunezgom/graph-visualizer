@@ -4,13 +4,19 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "gh-pages": "^3.2.3",
+    "postcss": "^8.4.6",
     "tailwindcss": "^3.0.18",
     "vite": "^2.7.2"
   },
   "dependencies": {
-    "cytoscape-avsdf": "^1.0.0"
+    "cytoscape": "^3.20.0",
+    "cytoscape-avsdf": "^1.0.0",
+    "papaparse": "^5.3.1"
   }
 }
