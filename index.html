@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAPlJREFUOE/tkz9qhUAQxr9FIXY2loKFNuIVbPUKllb+OYEKIWW8gjaeQG8g2HsMew/wHqgbduAJvuTFvKTNBwO7MPObZWY/xjl/A/AK4AXP6QrgnXHOL7dizjlE3IsxBhFf6CoAe0XTNCjL8lOeJEkwTRNhGCIIggPsIcB1Xei6jm3bMI4jpmkicF3X8Dxvb/IQUFUVfN+nxL7vkaYpnbMsQ5IkzwGGYUAURb8HtG2LoigIkOc54jg+f4GqqlAUhWYwzzNtR9y7roNt2+cAx3GgaRolyrIMy7JoA4ZhHLb0oyF+97/+AcDBTMuyYF3XffLCAyciM/3Jzh9KkLy/rbRpCAAAAABJRU5ErkJggg=="
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALGS Project Slides</title>
+    
+    <script type="module" crossorigin src="/assets/index.00f74726.js"></script>
+    <link rel="modulepreload" href="/assets/vendor.1268565c.js">
+    <link rel="stylesheet" href="/assets/index.540afa3a.css">
+  </head>
+  <body class="overflow-hidden">
+    <div id="app" class="h-full w-full absolute inset-0 flex">
+      <div
+        class="w-[600px] h-full border border-y-0 border-l-0 border-gray-500 bg-black flex flex-col justify-start"
+      >
+        <div
+          class="w-full border border-x-0 border-t-0 border-gray-500 px-8 py-8 pb-12 pt-6 flex flex-col justify-between gap-4 relative"
+        >
+          <div class="flex justify-between items-center">
+            <div class="flex h-full justify-between items-center gap-4">
+              <h2 class="text-[#87fff5] text-xl">START</h2>
+              <div class="h-5 w-5 rounded-full border-4 border-[#87fff5]"></div>
+              <div class="flex justify-between items-center gap-2">
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#87fff5]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#87fff5]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#87fff5]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#fff8a6]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#ff8aad]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#ff8aad]"
+                ></div>
+                <div
+                  class="h-[0.4rem] w-[0.4rem] rounded-full bg-[#ff8aad]"
+                ></div>
+              </div>
+              <div class="h-5 w-5 rounded-full border-4 border-[#ff8aad]"></div>
+              <h2 class="text-[#ff8aad] text-xl">FINISH</h2>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="flex flex-col gap-4 w-full">
+              <input
+                id="start-input"
+                class="h-14 w-full border bg-black px-6 text-xl text-white uppercase focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black"
+                placeholder="Start..."
+                spellcheck="false"
+              />
+              <input
+                id="finish-input"
+                class="h-14 w-full border bg-black px-6 text-xl text-white uppercase focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black"
+                placeholder="Finish..."
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <div class="h-14 w-full flex justify-between items-center gap-4">
+            <button
+              id="reset-button"
+              class="w-full h-full border text-white font-semibold hover:border-gray-300 hover:text-gray-300 focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black"
+            >
+              RESET ALL
+            </button>
+            <button
+              id="directions-button"
+              class="w-full h-full bg-white font-semibold hover:bg-gray-200 focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black disabled:bg-gray-900 disabled:text-gray-600"
+              disabled
+            >
+              DIRECTIONS
+            </button>
+          </div>
+          <button
+            id="reverse-button"
+            class="rounded-full w-14 h-14 bg-white tetx-black flex justify-center items-center absolute right-12 top-[6.5rem] hover:bg-gray-200 focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black disabled:bg-gray-900 disabled:text-gray-600"
+            disabled
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="flex">
+          <div
+            class="w-full border border-x-0 border-t-0 border-gray-500 px-8 py-10 flex flex-col justify-between items-center gap-4 relative"
+          >
+            <h2
+              class="text-gray-300 text-base font-bold rounded-sm text-center py-1 px-4 bg-gray-700 absolute -top-5"
+            >
+              UNIT
+            </h2>
+            <div class="w-full flex gap-4">
+              <button
+                id="distance-button"
+                class="w-full h-12 bg-white font-semibold hover:bg-gray-200 rounded-full text-normal focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black relative flex justify-center items-center group"
+              >
+                DISTANCE
+                <div
+                  id="bordered-circle"
+                  class="hidden absolute right-6 rounded-full h-4 w-4 border-2 border-white group-hover:border-gray-300 pointer-events-none"
+                ></div>
+                <div
+                  id="check-icon"
+                  class="absolute right-6 pointer-events-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <button
+                id="time-button"
+                class="w-full h-12 border text-white font-semibold hover:border-gray-300 hover:text-gray-300 rounded-full text-normal focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black relative flex justify-center items-center group"
+              >
+                TIME
+                <div
+                  id="bordered-circle"
+                  class="absolute right-6 rounded-full h-4 w-4 border-2 border-white group-hover:border-gray-300 pointer-events-none"
+                ></div>
+                <div
+                  id="check-icon"
+                  class="absolute right-6 hidden pointer-events-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full border border-x-0 border-t-0 border-gray-500 px-8 py-10 flex flex-col justify-between items-center gap-4 relative"
+        >
+          <h2
+            class="text-gray-300 text-base font-bold rounded-sm text-center py-1 px-4 bg-gray-700 absolute -top-5"
+          >
+            ALGORITHM
+          </h2>
+          <div class="w-full flex flex-col gap-4">
+            <button
+              id="cyto-dijkstra-button"
+              class="w-full h-12 bg-white font-semibold hover:bg-gray-200 rounded-full text-normal focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black relative flex justify-center items-center group"
+            >
+              CYTOSCAPE'S DIJKSTRA
+              <div
+                id="bordered-circle"
+                class="hidden absolute right-6 rounded-full h-4 w-4 border-2 border-white group-hover:border-gray-300 pointer-events-none"
+              ></div>
+              <div id="check-icon" class="absolute right-6 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+            <button
+              id="cyto-astar-button"
+              class="w-full h-12 border text-white font-semibold hover:border-gray-300 hover:text-gray-300 rounded-full text-normal focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black relative flex justify-center items-center group"
+            >
+              CYTOSCAPE'S ASTAR
+              <div
+                id="bordered-circle"
+                class="absolute right-6 rounded-full h-4 w-4 border-2 border-white group-hover:border-gray-300 pointer-events-none"
+              ></div>
+              <div
+                id="check-icon"
+                class="absolute right-6 hidden pointer-events-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+            <button
+              id="our-dijkstra-button"
+              class="w-full h-12 border text-white font-semibold hover:border-gray-300 hover:text-gray-300 rounded-full text-normal focus:outline-none focus:ring focus:ring-white focus:ring-offset-4 focus:ring-offset-black relative flex justify-center items-center group"
+            >
+              OUR OWN DIJKSTRA
+              <div
+                id="bordered-circle"
+                class="absolute right-6 rounded-full h-4 w-4 border-2 border-white group-hover:border-gray-300 pointer-events-none"
+              ></div>
+              <div
+                id="check-icon"
+                class="absolute right-6 hidden pointer-events-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div
+          class="w-full px-8 flex flex-col justify-center items-center gap-8 relative flex-1"
+        >
+          <h2
+            class="text-gray-300 text-base font-bold rounded-sm text-center py-1 px-4 bg-gray-700 absolute -top-5"
+          >
+            ANALYSIS
+          </h2>
+          <div
+            id="analysis-placeholder-text"
+            class="w-full flex flex-col justify-evenly items-center gap-1 text-white"
+          >
+            <h2 class="font-normal text-lg text-gray-400">
+              You have yet to calculate a path.
+            </h2>
+          </div>
+          <div
+            id="analysis-summary-text"
+            class="w-full flex flex-col justify-center items-center text-white hidden"
+          >
+            <h2 class="font-normal text-lg text-gray-400 uppercase">
+              Shortest Path
+            </h2>
+            <h3 class="font-normal text-lg text-gray-400 uppercase">
+              Cartagena - Armenia
+            </h3>
+            <h4 class="font-normal text-lg text-gray-400 uppercase">
+              Cytoscape's Dijkstra
+            </h4>
+          </div>
+
+          <div class="w-full flex justify-between items-center">
+            <div
+              id="distance-time-info-container"
+              class="w-full flex flex-col justify-center items-center gap-1 text-white hidden"
+            >
+              <h2 class="font-extrabold text-4xl">871</h2>
+              <h3 class="font-normal text-lg text-gray-400">TOTAL DISTANCE</h3>
+            </div>
+            <div
+              id="execution-time-info-container"
+              class="w-full flex flex-col justify-center items-center gap-1 text-white hidden"
+            >
+              <h2 class="font-extrabold text-4xl">0.00005</h2>
+              <h3 class="font-normal text-lg text-gray-400">EXECUTION TIME</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="cy" class="h-full w-full bg-black"></div>
+    </div>
+    
+  </body>
+</html>
