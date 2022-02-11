@@ -1,0 +1,13 @@
+window.distanceMatrix;
+window.timeMatrix;
+window.graphElements;
+window.cities = [];
+window.cy;
+window.path;
+window.totalWeight;
+window.totalExecutionTime;
+window.dijkstraStartNode;
+window.dijkstraFinishNode;
+window.numberOfClickedNodes = 0;
+window.previousStartInputValue = "";
+window.previousFinishInputValue = "";

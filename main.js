@@ -1,8 +1,8 @@
 import cytoscape from "cytoscape";
 import Papa from "papaparse";
 
-const distanceCsv = new URL("./co-distance.csv", import.meta.url).href;
-const timeCsv = new URL("./co-time.csv", import.meta.url).href;
+const distanceCsv = new URL("./assets/co-distance.csv", import.meta.url).href;
+const timeCsv = new URL("./assets/co-time.csv", import.meta.url).href;
 
 let distanceMatrix,
   timeMatrix,
@@ -41,7 +41,7 @@ const distanceButton = document.querySelector("#distance-button");
 const timeButton = document.querySelector("#time-button");
 const cytoDijkstraButton = document.querySelector("#cyto-dijkstra-button");
 const cytoAstarButton = document.querySelector("#cyto-astar-button");
-const ourDijkstraButton = document.querySelector("#our-dijkstra-button");
+// const ourDijkstraButton = document.querySelector("#our-dijkstra-button");
 
 const analysisSummaryText = document.querySelector("#analysis-summary-text");
 const analysisPlaceholderText = document.querySelector(
@@ -92,19 +92,19 @@ function handleDisplayButtonsClick(e) {
       directionsButton.dispatchEvent(new Event("click"));
       applySelectedStylesToButton(cytoDijkstraButton);
       removeSelectedStylesFromButton(cytoAstarButton);
-      removeSelectedStylesFromButton(ourDijkstraButton);
+      // removeSelectedStylesFromButton(ourDijkstraButton);
       break;
     case "cyto-astar-button":
       displayOptions.algorithm = "cyto-astar";
       directionsButton.dispatchEvent(new Event("click"));
       applySelectedStylesToButton(cytoAstarButton);
       removeSelectedStylesFromButton(cytoDijkstraButton);
-      removeSelectedStylesFromButton(ourDijkstraButton);
+      // removeSelectedStylesFromButton(ourDijkstraButton);
       break;
     case "our-dijkstra-button":
       displayOptions.algorithm = "our-dijkstra";
       directionsButton.dispatchEvent(new Event("click"));
-      applySelectedStylesToButton(ourDijkstraButton);
+      // applySelectedStylesToButton(ourDijkstraButton);
       removeSelectedStylesFromButton(cytoDijkstraButton);
       removeSelectedStylesFromButton(cytoAstarButton);
       break;
@@ -117,7 +117,7 @@ distanceButton.addEventListener("click", handleDisplayButtonsClick);
 timeButton.addEventListener("click", handleDisplayButtonsClick);
 cytoDijkstraButton.addEventListener("click", handleDisplayButtonsClick);
 cytoAstarButton.addEventListener("click", handleDisplayButtonsClick);
-ourDijkstraButton.addEventListener("click", handleDisplayButtonsClick);
+// ourDijkstraButton.addEventListener("click", handleDisplayButtonsClick);
 
 window.addEventListener("resize", (e) => {
   if (!cy) return;
@@ -152,7 +152,7 @@ window.addEventListener("keydown", (e) => {
   } else if (e.altKey && e.key === "4") {
     cytoAstarButton.dispatchEvent(new Event("click"));
   } else if (e.altKey && e.key === "5") {
-    ourDijkstraButton.dispatchEvent(new Event("click"));
+    // ourDijkstraButton.dispatchEvent(new Event("click"));
   }
 
   if (e.key === "/" && document.activeElement !== startInput) {
@@ -305,7 +305,7 @@ resetButton.addEventListener("click", (e) => {
   if (displayOptions.algorithm !== "cyto-dijkstra") {
     applySelectedStylesToButton(cytoDijkstraButton);
     removeSelectedStylesFromButton(cytoAstarButton);
-    removeSelectedStylesFromButton(ourDijkstraButton);
+    // removeSelectedStylesFromButton(ourDijkstraButton);
   }
 
   displayOptions = {
@@ -361,6 +361,7 @@ directionsButton.addEventListener("click", (e) => {
     });
   }
   animatePath(dijkstraStartNode, dijkstraFinishNode);
+  // getPathWithSlowDijkstra(distanceMatrix, dijkstraStartNode);
   analysisPlaceholderText.classList.add("hidden");
   distanceTimeInfoContainer.classList.remove("hidden");
   executionTimeInfoContainer.classList.remove("hidden");
@@ -410,71 +411,6 @@ reverseButton.addEventListener("click", (e) => {
   finishInput.dispatchEvent(new Event("input"));
   directionsButton.focus();
 });
-
-function animatePath(startNode, finishNode) {
-  if (displayOptions.algorithm === "cyto-dijkstra") {
-    const startTime = performance.now();
-    // Initiate dijkstra's algorithm by giving it the starting node
-    const dijkstra = cy.elements().dijkstra(
-      `#${startNode}`,
-      function (edge) {
-        return edge.data(`${displayOptions.unit}`);
-      },
-      true
-    );
-    // Finish the dijkstra search by giving it the ending node
-    path = dijkstra.pathTo(cy.$(`#${finishNode}`));
-    const endTime = performance.now();
-    totalExecutionTime = endTime - startTime;
-    totalWeight = dijkstra.distanceTo(cy.$(`#${finishNode}`));
-  } else if (displayOptions.algorithm === "cyto-astar") {
-    const startTime = performance.now();
-    const aStar = cy.elements().aStar({
-      root: `#${startNode}`,
-      goal: `#${finishNode}`,
-      weight: function (edge) {
-        return edge.data(`${displayOptions.unit}`);
-      },
-      directed: true,
-    });
-    const endTime = performance.now();
-    totalExecutionTime = endTime - startTime;
-
-    path = aStar.path;
-    totalWeight = aStar.distance;
-  }
-
-  let i = 0,
-    tick = 500;
-
-  function trace() {
-    if (i < path.length) {
-      if (path[i]._private.group === "nodes") {
-        if (i === 0) {
-          path[i].addClass("node-selected-start");
-        } else if (i === path.length - 1) {
-          path[i].addClass("node-selected-finish");
-        } else {
-          path[i].addClass("node-selected");
-        }
-      }
-      if (path[i]._private.group === "edges") {
-        if (path.length === 3) {
-          path[i].addClass("edge-selected-unique");
-        } else if (i === 1) {
-          path[i].addClass("edge-selected-start");
-        } else if (i === path.length - 2) {
-          path[i].addClass("edge-selected-finish");
-        } else {
-          path[i].addClass("edge-selected");
-        }
-      }
-      i++;
-      setTimeout(trace, tick);
-    }
-  }
-  trace();
-}
 
 const COLORS = {
   black: "#000",
@@ -696,6 +632,91 @@ function formatString(string) {
     .toLowerCase();
 }
 
+function parseTime(timeInHHMM) {
+  const timeArray = timeInHHMM.split(":");
+  const totalMinutes = +timeArray[0] * 60 + +timeArray[1];
+  return totalMinutes;
+}
+
+function parseTimeLabel(timeInHHMM) {
+  const timeArray = timeInHHMM.split(":");
+  const hoursString = +timeArray[0] === 0 ? "" : `${+timeArray[0]}h`;
+  const minutesString = +timeArray[1] === 0 ? "" : `${+timeArray[1]}m`;
+  const timeLabel = `${hoursString} ${minutesString}`;
+  return timeLabel;
+}
+
+function timeConvert(inputMinutes) {
+  const hours = inputMinutes / 60;
+  const rhours = Math.floor(hours);
+  const minutes = (hours - rhours) * 60;
+  const rminutes = Math.round(minutes);
+  const result = `${rhours}h ${rminutes}m`;
+  return result;
+}
+
+// -----------------------------------------------
+// -----------------GENERATE GRAPH----------------
+// -----------------------------------------------
+
+async function parseCsvFilesAndGenerateGraph() {
+  try {
+    distanceMatrix = await getAdjMatrixFromCSV(distanceCsv);
+    timeMatrix = await getAdjMatrixFromCSV(timeCsv);
+    graphElements = getNodesAndEdgesFromAdjMatrix(distanceMatrix, timeMatrix);
+    buildGraph();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+async function getAdjMatrixFromCSV(localPath) {
+  const response = await fetch(localPath);
+  const reader = response.body.getReader();
+  const result = await reader.read(); // raw array
+  const decoder = new TextDecoder("utf-8");
+  const csv = decoder.decode(result.value); // the csv text
+  const results = Papa.parse(csv, { header: false }); // object with { data, errors, meta }
+  const rows = results.data;
+
+  return rows;
+}
+
+function getNodesAndEdgesFromAdjMatrix(routes, durations) {
+  if (!routes) return null;
+  const elements = [];
+  for (let i = 1; i < routes.length; i++) {
+    cities.push(formatString(routes[0][i]));
+    elements.push({
+      group: "nodes",
+      data: {
+        id: formatString(routes[0][i]),
+        label: routes[0][i],
+      },
+    });
+  }
+
+  for (let i = 1; i < routes.length; i++) {
+    for (let j = 1; j < routes.length; j++) {
+      if (i === j) continue;
+      elements.push({
+        group: "edges",
+        data: {
+          id: formatString(`${routes[i][0]}-${routes[0][j]}`),
+          source: formatString(routes[i][0]),
+          target: formatString(routes[0][j]),
+          distance: parseInt(routes[i][j]),
+          time: parseTime(durations[i][j]),
+          "time-label": parseTimeLabel(durations[i][j]),
+          label: `${routes[i][0]}-${routes[0][j]}`,
+        },
+      });
+    }
+  }
+
+  return elements;
+}
+
 function buildGraph() {
   // Create cytoscape's graph object and render it
   cy = cytoscape({
@@ -747,87 +768,70 @@ function buildGraph() {
   });
 }
 
-async function getAdjMatrixFromCSV(localPath) {
-  const response = await fetch(localPath);
-  const reader = response.body.getReader();
-  const result = await reader.read(); // raw array
-  const decoder = new TextDecoder("utf-8");
-  const csv = decoder.decode(result.value); // the csv text
-  const results = Papa.parse(csv, { header: false }); // object with { data, errors, meta }
-  const rows = results.data;
-
-  return rows;
-}
-
-function buildNodesAndEdges(routes, durations) {
-  if (!routes) return null;
-  const elements = [];
-  for (let i = 1; i < routes.length; i++) {
-    cities.push(formatString(routes[0][i]));
-    elements.push({
-      group: "nodes",
-      data: {
-        id: formatString(routes[0][i]),
-        label: routes[0][i],
+function animatePath(startNode, finishNode) {
+  if (displayOptions.algorithm === "cyto-dijkstra") {
+    const startTime = performance.now();
+    // Initiate dijkstra's algorithm by giving it the starting node
+    const dijkstra = cy.elements().dijkstra(
+      `#${startNode}`,
+      function (edge) {
+        return edge.data(`${displayOptions.unit}`);
       },
+      true
+    );
+    // Finish the dijkstra search by giving it the ending node
+    path = dijkstra.pathTo(cy.$(`#${finishNode}`));
+    const endTime = performance.now();
+    totalExecutionTime = endTime - startTime;
+    totalWeight = dijkstra.distanceTo(cy.$(`#${finishNode}`));
+  } else if (displayOptions.algorithm === "cyto-astar") {
+    const startTime = performance.now();
+    const aStar = cy.elements().aStar({
+      root: `#${startNode}`,
+      goal: `#${finishNode}`,
+      weight: function (edge) {
+        return edge.data(`${displayOptions.unit}`);
+      },
+      directed: true,
     });
+    const endTime = performance.now();
+    totalExecutionTime = endTime - startTime;
+
+    path = aStar.path;
+    totalWeight = aStar.distance;
   }
 
-  for (let i = 1; i < routes.length; i++) {
-    for (let j = 1; j < routes.length; j++) {
-      if (i === j) continue;
-      elements.push({
-        group: "edges",
-        data: {
-          id: formatString(`${routes[i][0]}-${routes[0][j]}`),
-          source: formatString(routes[i][0]),
-          target: formatString(routes[0][j]),
-          distance: parseInt(routes[i][j]),
-          time: parseTime(durations[i][j]),
-          "time-label": parseTimeLabel(durations[i][j]),
-          label: `${routes[i][0]}-${routes[0][j]}`,
-        },
-      });
+  let i = 0,
+    tick = 500;
+
+  function trace() {
+    if (i < path.length) {
+      if (path[i]._private.group === "nodes") {
+        if (i === 0) {
+          path[i].addClass("node-selected-start");
+        } else if (i === path.length - 1) {
+          path[i].addClass("node-selected-finish");
+        } else {
+          path[i].addClass("node-selected");
+        }
+      }
+      if (path[i]._private.group === "edges") {
+        if (path.length === 3) {
+          path[i].addClass("edge-selected-unique");
+        } else if (i === 1) {
+          path[i].addClass("edge-selected-start");
+        } else if (i === path.length - 2) {
+          path[i].addClass("edge-selected-finish");
+        } else {
+          path[i].addClass("edge-selected");
+        }
+      }
+      i++;
+      setTimeout(trace, tick);
     }
   }
-
-  return elements;
+  trace();
 }
 
-function parseTime(timeInHHMM) {
-  const timeArray = timeInHHMM.split(":");
-  const totalMinutes = +timeArray[0] * 60 + +timeArray[1];
-  return totalMinutes;
-}
-
-function parseTimeLabel(timeInHHMM) {
-  const timeArray = timeInHHMM.split(":");
-  const hoursString = +timeArray[0] === 0 ? "" : `${+timeArray[0]}h`;
-  const minutesString = +timeArray[1] === 0 ? "" : `${+timeArray[1]}m`;
-  const timeLabel = `${hoursString} ${minutesString}`;
-  return timeLabel;
-}
-
-function timeConvert(inputMinutes) {
-  const hours = inputMinutes / 60;
-  const rhours = Math.floor(hours);
-  const minutes = (hours - rhours) * 60;
-  const rminutes = Math.round(minutes);
-  const result = `${rhours}h ${rminutes}m`;
-  return result;
-}
-
-async function setAdjMatrix() {
-  try {
-    distanceMatrix = await getAdjMatrixFromCSV(distanceCsv);
-    timeMatrix = await getAdjMatrixFromCSV(timeCsv);
-    graphElements = buildNodesAndEdges(distanceMatrix, timeMatrix);
-    // graphElements = buildNodesAndEdges(distanceCsv, timeCsv);
-    buildGraph();
-    graphElements.find((el) => el);
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
-
-setAdjMatrix();
+// INIT
+parseCsvFilesAndGenerateGraph();
