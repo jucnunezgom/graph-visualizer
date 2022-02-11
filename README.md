@@ -1,3 +1,3 @@
 # Graph Visualizer
 
-Graph visualizer and analyzer of traveling distances/times between some Colombian cities.
+Graph visualizer and analyzer of traveling distances/times between some Colombian cities with Cytoscape.js.
